@@ -394,6 +394,12 @@ class ServerModel with ChangeNotifier {
       // 直接停止服务，不弹窗
       stopService();
     } else {
+      // 自动开启所有需要的权限（调用你现有的 toggle 函数）
+      if (!_inputOk) toggleInput();
+      if (!_fileOk) toggleFile();
+      if (!_audioOk) toggleAudio();
+      if (!_clipboardOk) toggleClipboard();
+
       await checkRequestNotificationPermission();
       
       if (bind.mainGetLocalOption(key: kOptionDisableFloatingWindow) != 'Y') {
